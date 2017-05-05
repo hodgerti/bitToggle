@@ -32,4 +32,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 DISTFILES += \
     main.py \
     serial/Serial.py \
-    serial/__init__.py
+    serial/__init__.py \
+    BitBlock/BitBlock.py \
+    BitBlock/__init__.py \
+    Resources/UICore.py \
+    Resources/__init__.py

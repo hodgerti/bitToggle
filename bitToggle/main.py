@@ -1,48 +1,82 @@
 import sys
 
-
-from PyQt5.QtCore import QUrl, QObject
+from PyQt5.QtCore import QUrl
+from PyQt5.QtGui import QGuiApplication
+from PyQt5 import QtWidgets, QtCore, QtGui
+from PyQt5.QtQml import QQmlApplicationEngine
 from PyQt5.QtWidgets import QApplication
-from PyQt5.QtQuick import QQuickView, QQuickItem
+from PyQt5.QtQuick import QQuickView, QQuickItem, QQuickWindow
 from Serial.Serial import SerialHandle
+from BitBlock.BitBlock import BitBlockSender, BitBlockStack, BitBlock
+
+UI_PATH = "main.qml"
 
 class AppWindow(QQuickView):
+    startAllThreadsSIGNAL = QtCore.pyqtSignal()
+    connectSignalsToSlotsSIGNAL = QtCore.pyqtSignal()
+    killAllThreadsSIGNAL = QtCore.pyqtSignal()
+
+    def __init__(self, parent=None):
+
+        #starting up QQuickView
+        super(AppWindow, self).__init__(parent)
+        self.setSource(QUrl(UI_PATH))
+        self.show()
+        root = self.rootObject()
+        self.closing.connect(self.closeEvent)
+
+        # root.close.connect(self.closeEvent)
+
+        #threading defines
+        self.numThreadsRunning = 0
+        self.threads = []
+
+        #objects
+        self.bitBlockSender = BitBlockSender(self)
+
+        # bitBlockSender demo
+        self.bitBlockSender.bitBlockStack.add(BitBlock('alt-flash', 250, 1000))
+        self.bitBlockSender.bitBlockStack.add(BitBlock('snake', 100, 3000))
+
+        #adding threads to list
+        self.threads.append(self.bitBlockSender)
+
+        #connecting all thread slots
+        for thread in self.threads:
+            self.connectSignalsToSlotsSIGNAL.connect(thread.connectSignalsToSlotsSLOT)
+            self.startAllThreadsSIGNAL.connect(thread.start)
+
+        self.connectSignalsToSlotsSIGNAL.emit()
+
+        #starting all threads
+        self.startAllThreadsSIGNAL.emit()
+
+        #ensure all threads closed
+        for threads in self.threads:
+            if not thread.isRunning():
+                self.close()
 
 
+        print("ALL THREADS STARTED SUCCESFULLY")
 
-    def __init__(self, source, parent=None):
-        super(QQuickView, self).__init__(parent)
-        self.setSource(QUrl(source))
+    # NOT a true close event, but this way works fine with QQuickView
+    def closeEvent(self):
+        print("APPLICATION CLOSING...")
+        self.killAllThreadsSIGNAL.emit()
 
-        self.serial = SerialHandle('COM3', 9600)
-        self.ledState = True
+        for thread in self.threads:
+            thread.wait()
 
-        view = self.rootObject()
+        print("...APPLICATION CLOSED")
 
-        #signal bank
-        view.write.connect(lambda: self.UIClicked())
-
-    def UIClicked(self):
-        print("Writing")
-        if (self.ledState):
-            self.ledState = False
-            self.serial.write('1')
-        else:
-            self.ledState = True
-            self.serial.write('0')
-
-    def __del__(self):
-        self.serial.write('0')
 
 
 # Main Function
 if __name__ == "__main__":
     # Create main app
-    app = QApplication(sys.argv)
-    # Create a label and set its properties
-    appLabel = AppWindow('main.qml')
-
-    appLabel.show()
+    app = QGuiApplication(sys.argv)
+    # Create thing
+    engine = AppWindow()
 
     # Execute the Application and Exit
     app.exec_()
