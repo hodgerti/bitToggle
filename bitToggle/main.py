@@ -35,8 +35,8 @@ class AppWindow(QQuickView):
         self.bitBlockSender = BitBlockSender(self)
 
         # bitBlockSender demo
-        self.bitBlockSender.bitBlockStack.add(BitBlock('alt-flash', 250, 1000))
-        self.bitBlockSender.bitBlockStack.add(BitBlock('snake', 100, 3000))
+        self.bitBlockSender.add('on-off', .1, 10000)
+        self.bitBlockSender.add('snake', .02, 10000)
 
         #adding threads to list
         self.threads.append(self.bitBlockSender)

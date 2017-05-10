@@ -9,14 +9,20 @@ class BitBlock():
         if (p == 'alt-flash'):
             self.pattern = ['010101010','101010101']
             self.patternName = 'alt-flash'
+            self.bytesToWrite = 2
         elif (p == 'snake'):
             self.pattern = ['10000000','01000000','00100000','00010000','00001000', '00000100','00000010','00000001']
             self.patternName = 'snake'
+            self.bytesToWrite = 8
+        elif (p == 'on-off'):
+            self.pattern = ['11111111', '00000000']
+            self.patternName = 'on-off'
+            self.bytesToWrite = 2
         else:
             print("PATTERN NOT FOUND")
 
-        self.freq = f
-        self.time = t
+        self.freq = f # in hertz Hz
+        self.time = t # in milliseconds ms
         self.order = O
 
     #set block's number in order
@@ -49,24 +55,35 @@ class BitBlockSender(QtCore.QThread):
 
         self.bitBlockStack = BitBlockStack()
 
-        self.timer = QTime()
+        self.bigTime = QTime()
 
         #class flags
         self.runFlag = True
 
     #loops through bitBlock stack
     def run(self):
-        self.timer.start()
+        self.bigTime.start()
         while self.runFlag:
-            self.timer.restart()
+            self.bigTime.restart()
             if (self.bitBlockStack.bitBlockStack != None):
                 for bitBlock in self.bitBlockStack.bitBlockStack:
-                    while(self.timer.elapsed() < bitBlock.time):
+                    if not self.runFlag:
+                        break
+                    while(self.bigTime.elapsed() < bitBlock.time):
+                        if not self.runFlag:
+                            break
                         for index, item in enumerate(bitBlock.pattern):
+                            if not self.runFlag:
+                                break
                             self.serial.write(bitBlock.pattern[index])
-                            self.msleep(bitBlock.freq)
-                            print("WRITING 1 BYTE " + bitBlock.patternName)
-                    print("SWAPPING BLOCKS")
+                            #scales based upon number of bytes to write
+                            self.msleep(1000/(bitBlock.freq * bitBlock.bytesToWrite))
+            if not self.runFlag:
+                break
+        self.serial.write('00000000')
+
+    def add(self, pattern, freq, time, order = None):
+        self.bitBlockStack.add(BitBlock(pattern, freq, time, order))
 
     def connectSignalsToSlotsSLOT(self):
         self.mainWindow.killAllThreadsSIGNAL.connect(self.killThreadSLOT)

@@ -1,6 +1,6 @@
 import serial
 
-class SerialHandle:
+class SerialHandle():
     def __init__(self, portName, baudRate):
         self.ser = serial.Serial(portName, baudRate)
         if (self.ser.is_open):

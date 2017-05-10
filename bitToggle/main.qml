@@ -1,27 +1,33 @@
 import QtQuick 2.0
 import QtQuick.Window 2.2
 import QtQuick.Controls 1.1
+import QtQuick.Layouts 1.2
+import QtQuick.Controls.Material 2.0
+
 
 Item {
     id: root
     objectName: "root"
-    property bool color: false
+    Material.theme: Material.Dark
+
+    property string pattern: "None"
+    property var snake: [0,1,2,4,8,16,32,64,128]
+    property var alt_flash: [85,170]
+    property var on_off: [255,0]
+
+
     signal write
     signal close
     x: 0
     y: 0
-    width: 640
-    height: 480
-    Rectangle {
-        id: rectangle
-        color: root.color ? "red" : "blue"
-        anchors.fill: parent
-        MouseArea {
-            anchors.fill: parent
-            onClicked: {
-                root.color = !root.color;
-                root.write();
-            }
-        }
+    width: 1920
+    height: 1080
+
+    LeftCol {
+        id: leftCol
+    }
+
+    RightCol {
+        id: rightCol
     }
 }

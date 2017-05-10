@@ -1,5 +1,8 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
+        <file>LeftCol.qml</file>
+        <file>RightCol.qml</file>
+        <file>PatternDisplay.qml</file>
     </qresource>
 </RCC>
