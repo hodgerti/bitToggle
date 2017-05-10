@@ -10,14 +10,14 @@ Item {
     objectName: "root"
     Material.theme: Material.Dark
 
+
     property string pattern: "None"
     property var snake: [0,1,2,4,8,16,32,64,128]
     property var alt_flash: [85,170]
-    property var on_off: [255,0]
+    property var on_off: [0,255]
 
+    signal entryFormChanged()
 
-    signal write
-    signal close
     x: 0
     y: 0
     width: 1920

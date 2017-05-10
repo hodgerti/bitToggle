@@ -50,7 +50,8 @@ Item {
 
             model: ["alt-flash", "snake", "on-off"]
             onAccepted: {
-                root.pattern = patternSelect.currentText
+                root.pattern = patternSelect.currentText;
+                root.entryFormChanged()
             }
         }
         //spacer
@@ -66,6 +67,10 @@ Item {
             font.capitalization: Font.AllLowercase
             placeholderText: "Frequency Select"
             width: leftCol.width
+            validator: DoubleValidator{}
+            onTextChanged: {
+                root.entryFormChanged()
+            }
         }
 
         TextField {
@@ -75,6 +80,7 @@ Item {
             font.capitalization: Font.AllLowercase
             placeholderText: "Time Select"
             width: leftCol.width
+            validator: DoubleValidator{}
         }
         //spacer
         Rectangle {
@@ -83,6 +89,7 @@ Item {
         }
 
         PatternDisplay {
+
         }
     }
 
