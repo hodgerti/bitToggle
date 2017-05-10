@@ -20,7 +20,7 @@ Row {
     //freqSelect.text
     //root.pattern
     function setByte(_num){
-        var num = _num
+        var num = _num;
         for (var i = 0;i < 8;i++){
             repeater.itemAt(i).color = display.offColor;
         }
@@ -79,7 +79,7 @@ Row {
             else if (pattern === "snake")
                 return root.snake;
             else {
-                console.log("non selected: " + pattern);
+                console.log("none selected: " + pattern);
                 return;
             }
         }
@@ -88,10 +88,10 @@ Row {
         running: true
         repeat: true
         onTriggered: {
-            variClock.idx = variClock.idx + 1;
             variClock.list = variClock.patternSelecter(patternSelect.currentText);
             variClock.len = variClock.list.length;
-            display.setByte(root.snake[idx]);
+            display.setByte(variClock.list[idx]);
+            variClock.idx = variClock.idx + 1;
             if (variClock.idx >= variClock.len) variClock.idx = 0;
         }
 
