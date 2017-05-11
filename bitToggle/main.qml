@@ -17,6 +17,9 @@ Item {
     property var on_off: [0,255]
 
     signal entryFormChanged()
+    signal deleteBlockClicked()
+    signal addBlockClicked()
+    signal flashClicked()
 
     x: 0
     y: 0

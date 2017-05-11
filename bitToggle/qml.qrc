@@ -4,5 +4,7 @@
         <file>LeftCol.qml</file>
         <file>RightCol.qml</file>
         <file>PatternDisplay.qml</file>
+        <file>bitBlockCreation.js</file>
+        <file>bitBlockDef.qml</file>
     </qresource>
 </RCC>

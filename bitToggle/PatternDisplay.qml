@@ -17,8 +17,7 @@ Row {
             border.color: "silver"
         }
     }
-    //freqSelect.text
-    //root.pattern
+
     function setByte(_num){
         var num = _num;
         for (var i = 0;i < 8;i++){

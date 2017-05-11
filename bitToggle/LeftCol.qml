@@ -27,13 +27,13 @@ Item {
             height: leftCol.height/12
             style: ComboBoxStyle {
                 label: Text {
-                        verticalAlignment: Text.AlignVCenter
-                        horizontalAlignment: Text.AlignHCenter
-                        font.pointSize: 60
-                        font.family: "Courier"
-                        font.capitalization: Font.SmallCaps
-                        color: "black"
-                        text: patternSelect.currentText
+                    verticalAlignment: Text.AlignVCenter
+                    horizontalAlignment: Text.AlignHCenter
+                    font.pointSize: 60
+                    font.family: "Courier"
+                    font.capitalization: Font.SmallCaps
+                    color: "black"
+                    text: patternSelect.currentText
                 }
                 property Component __dropDownStyle: MenuStyle {
                     itemDelegate.label: Text {
@@ -46,7 +46,7 @@ Item {
                         text: styleData.text
                     }
                 }
-           }
+            }
 
             model: ["alt-flash", "snake", "on-off"]
             onAccepted: {
@@ -91,7 +91,96 @@ Item {
         PatternDisplay {
 
         }
+        //spacer
+        Rectangle {
+            height: 10
+            width: leftCol.width
+        }
+
+        Rectangle {
+            id: addDeleteButtons
+            width: leftCol.width
+            height: 50
+
+            Button {
+                id: deleteBlock
+                width: addDeleteButtons.width/2
+                height: 50
+                text: qsTr("Delete Block")
+                anchors.top: parent.top
+                anchors.topMargin: 0
+                anchors.left: addBlock.right
+                anchors.leftMargin: 0
+                style: ButtonStyle {
+                    label: Text {
+                        verticalAlignment: Text.AlignVCenter
+                        horizontalAlignment: Text.AlignHCenter
+                        font.pointSize: 60
+                        font.family: "Courier"
+                        font.capitalization: Font.SmallCaps
+                        color: "black"
+                        text: deleteBlock.text
+                    }
+                }
+                onClicked: {
+                    root.deleteBlockClicked();
+                }
+            }
+
+            Button {
+                id: addBlock
+                width: addDeleteButtons.width/2
+                height: 50
+                text: qsTr("Add Block")
+                anchors.top: parent.top
+                anchors.topMargin: 0
+                anchors.left: parent.left
+                anchors.leftMargin: 0
+                style: ButtonStyle {
+                    label: Text {
+                        verticalAlignment: Text.AlignVCenter
+                        horizontalAlignment: Text.AlignHCenter
+                        font.pointSize: 60
+                        font.family: "Courier"
+                        font.capitalization: Font.SmallCaps
+                        color: "black"
+                        text: addBlock.text
+                    }
+                }
+                onClicked: {
+                    root.addBlockClicked();
+                }
+            }
+        }
+        Rectangle {
+            id: flashButtons
+            width: leftCol.width
+            height: 50
+
+            Button {
+                id: flashButton
+                width: flashButtons.width
+                height: 50
+                text: qsTr("Flash Blocks")
+                anchors.left: parent.left
+                anchors.leftMargin: 0
+                anchors.top: parent.top
+                anchors.topMargin: 0
+                style: ButtonStyle {
+                    label: Text {
+                        verticalAlignment: Text.AlignVCenter
+                        horizontalAlignment: Text.AlignHCenter
+                        font.pointSize: 60
+                        font.family: "Courier"
+                        font.capitalization: Font.SmallCaps
+                        color: "black"
+                        text: flashButton.text
+                    }
+                }
+                onClicked: {
+                    root.flashClicked();
+                }
+            }
+        }
     }
-
-
 }
