@@ -7,5 +7,6 @@
         <file>Resources/qml/RightCol.qml</file>
         <file>main.cpp</file>
         <file>Resources/qml/BitBlockDef.qml</file>
+        <file>Resources/qml/FullCycleDisplay.qml</file>
     </qresource>
 </RCC>

@@ -18,6 +18,7 @@ Item {
     }
     function deleteBlockClicked (){
         root.lastElementClicked.destroy();
+        fullCycleDisplay.setByte(0);
     }
 
     Column {
@@ -29,10 +30,17 @@ Item {
         anchors.topMargin: 0
         anchors.right: parent.right
         anchors.rightMargin: 0
-
         spacing: 3
 
+    }
 
-
+    FullCycleDisplay {
+        id: fullCycleDisplay
+        width: parent.width * .3
+        height: parent.height
+        anchors.left: parent.left
+        anchors.leftMargin: 0
+        anchors.top: parent.top
+        anchors.topMargin: 0
     }
 }
