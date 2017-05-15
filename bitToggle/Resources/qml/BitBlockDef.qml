@@ -5,7 +5,7 @@ Rectangle {
     x: parent.width/2
     height: 100
     width: 100
-    color: "#C0E6ED"
+    color: (block === root.lastElementClicked) ? "#ff9966" : "#C0E6ED"
     border.width: 2
     border.color: "#edc7c0"
     property string p
