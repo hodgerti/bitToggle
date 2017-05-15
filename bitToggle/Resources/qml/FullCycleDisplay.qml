@@ -72,18 +72,8 @@ Column {
         property int bitBlockIdx: 0
         running: true
         repeat: true
-        function regain(){
-            if(bitBlockEle){
-                return 1000 * bitBlockEle.t;
-            }
-            else {
-                bitBlockEle = bitBlockList[0];
-                console.log("nothing");
-                return 0;
-            }
-        }
 
-        interval: regain()
+        interval: (bitBlockEle) ? 1000 * bitBlockEle.t : 80
         onTriggered: {
             if (bitBlockIdx < bitBlockListLength){
                 if (bitBlockList[bitBlockIdx]){

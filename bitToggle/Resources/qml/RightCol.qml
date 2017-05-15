@@ -17,7 +17,8 @@ Item {
         BitBlockCreatorScript.createBitBlock(pattern, freq, time);
     }
     function deleteBlockClicked (){
-        root.lastElementClicked.destroy();
+        if (root.lastElementClicked)
+            root.lastElementClicked.destroy();
         fullCycleDisplay.setByte(0);
     }
 
