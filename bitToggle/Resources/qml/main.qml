@@ -15,11 +15,19 @@ Item {
     property var snake: [0,1,2,4,8,16,32,64,128]
     property var alt_flash: [85,170]
     property var on_off: [0,255]
+    property var lastElementClicked
 
     signal entryFormChanged()
     signal deleteBlockClicked()
-    signal addBlockClicked()
+    signal addBlockClicked(string pattern, double freq, double time)
     signal flashClicked()
+
+    Component.onCompleted: {
+        root.addBlockClicked.connect(rightCol.addButtonClicked);
+        root.deleteBlockClicked.connect(rightCol.deleteBlockClicked);
+    }
+
+
 
     x: 0
     y: 0

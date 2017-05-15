@@ -9,7 +9,7 @@ from PyQt5.QtQuick import QQuickView, QQuickItem, QQuickWindow
 from Serial.Serial import SerialHandle
 from BitBlock.BitBlock import BitBlockSender, BitBlockStack, BitBlock
 
-UI_PATH = "main.qml"
+UI_PATH = "Resources/qml/main.qml"
 
 class AppWindow(QQuickView):
     startAllThreadsSIGNAL = QtCore.pyqtSignal()
@@ -25,7 +25,6 @@ class AppWindow(QQuickView):
         root = self.rootObject()
         self.closing.connect(self.closeEvent)
 
-        # root.close.connect(self.closeEvent)
 
         #threading defines
         self.numThreadsRunning = 0

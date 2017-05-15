@@ -1,10 +1,11 @@
 <RCC>
     <qresource prefix="/">
-        <file>main.qml</file>
-        <file>LeftCol.qml</file>
-        <file>RightCol.qml</file>
-        <file>PatternDisplay.qml</file>
-        <file>bitBlockCreation.js</file>
-        <file>bitBlockDef.qml</file>
+        <file>Resources/qml/bitBlockCreation.js</file>
+        <file>Resources/qml/LeftCol.qml</file>
+        <file>Resources/qml/main.qml</file>
+        <file>Resources/qml/PatternDisplay.qml</file>
+        <file>Resources/qml/RightCol.qml</file>
+        <file>main.cpp</file>
+        <file>Resources/qml/BitBlockDef.qml</file>
     </qresource>
 </RCC>

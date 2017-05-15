@@ -148,7 +148,7 @@ Item {
                     }
                 }
                 onClicked: {
-                    root.addBlockClicked();
+                    root.addBlockClicked(patternSelect.currentText, parseFloat(freqSelect.text), parseFloat(timeSelect.text))
                 }
             }
         }
