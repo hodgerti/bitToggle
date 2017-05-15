@@ -4,6 +4,10 @@ Column {
     id: fullCycleDisplay
     property string offColor: "#ffff99"
     property string onColor: "#0099ff"
+
+    property var bitBlockList: rCol.children
+    property var bitBlockEle
+
     Repeater {
         id: repeater2
         model: 8
@@ -62,14 +66,42 @@ Column {
         }
 
     }
+    Timer {
+        id: cycleClock
+        property int bitBlockListLength: bitBlockList.length
+        property int bitBlockIdx: 0
+        running: true
+        repeat: true
+        function regain(){
+            if(bitBlockEle){
+                return 1000 * bitBlockEle.t;
+            }
+            else {
+                bitBlockEle = bitBlockList[0];
+                console.log("nothing");
+                return 0;
+            }
+        }
+
+        interval: regain()
+        onTriggered: {
+            if (bitBlockIdx < bitBlockListLength){
+                if (bitBlockList[bitBlockIdx]){
+                    bitBlockEle = bitBlockList[bitBlockIdx];
+                }
+                bitBlockIdx++;
+            }
+            else {
+                bitBlockIdx = 0;
+            }
+        }
+    }
 
     Timer {
         id: variClock
         property int idx: 0
         property int len: 1
         property var list
-        property var bitBlockList: rCol.children
-        property var bitBlockEle: rCol.children[0]
 
         function patternSelecter(pattern) {
             if (pattern === "alt-flash")
