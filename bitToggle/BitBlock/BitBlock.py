@@ -85,6 +85,9 @@ class BitBlockSender(QtCore.QThread):
     def add(self, pattern, freq, time, order = None):
         self.bitBlockStack.add(BitBlock(pattern, freq, time, order))
 
+    def clear(self):
+        self.bitBlockStack = []
+
     def connectSignalsToSlotsSLOT(self):
         self.mainWindow.killAllThreadsSIGNAL.connect(self.killThreadSLOT)
 

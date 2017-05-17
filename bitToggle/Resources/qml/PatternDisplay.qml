@@ -82,8 +82,14 @@ Row {
                 return;
             }
         }
+        function inter () {
+            if ((1000/ (parseFloat(freqSelect.text) * variClock.len)) > 0){
+                return 1000/ (parseFloat(freqSelect.text) * variClock.len);
+            }
+            return false;
+        }
 
-        interval: 1000/(parseFloat(freqSelect.text) * variClock.len)
+        interval: inter()
         running: true
         repeat: true
         onTriggered: {

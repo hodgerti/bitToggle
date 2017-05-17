@@ -8,6 +8,7 @@ from PyQt5.QtWidgets import QApplication
 from PyQt5.QtQuick import QQuickView, QQuickItem, QQuickWindow
 from Serial.Serial import SerialHandle
 from BitBlock.BitBlock import BitBlockSender, BitBlockStack, BitBlock
+from Resources.UICore import UICore
 
 UI_PATH = "Resources/qml/main.qml"
 
@@ -17,12 +18,11 @@ class AppWindow(QQuickView):
     killAllThreadsSIGNAL = QtCore.pyqtSignal()
 
     def __init__(self, parent=None):
-
         #starting up QQuickView
         super(AppWindow, self).__init__(parent)
         self.setSource(QUrl(UI_PATH))
         self.show()
-        root = self.rootObject()
+        self.root = self.rootObject()
         self.closing.connect(self.closeEvent)
 
         #threading defines
@@ -31,10 +31,10 @@ class AppWindow(QQuickView):
 
         #objects
         self.bitBlockSender = BitBlockSender(self)
+        self.core = UICore(self)
 
         # bitBlockSender demo
-        self.bitBlockSender.add('on-off', .1, 10000)
-        self.bitBlockSender.add('snake', .02, 10000)
+
 
         #adding threads to list
         self.threads.append(self.bitBlockSender)
@@ -44,16 +44,17 @@ class AppWindow(QQuickView):
             self.connectSignalsToSlotsSIGNAL.connect(thread.connectSignalsToSlotsSLOT)
             self.startAllThreadsSIGNAL.connect(thread.start)
 
-        self.connectSignalsToSlotsSIGNAL.emit()
+        self.connectSignalsToSlotsSIGNAL.connect(self.core.connectSignalsToSlotsSLOT)
 
         #starting all threads
         self.startAllThreadsSIGNAL.emit()
+
+        self.connectSignalsToSlotsSIGNAL.emit()
 
         #ensure all threads closed
         for threads in self.threads:
             if not thread.isRunning():
                 self.close()
-
 
         print("ALL THREADS STARTED SUCCESFULLY")
 

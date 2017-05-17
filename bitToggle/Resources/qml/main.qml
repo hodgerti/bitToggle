@@ -21,12 +21,17 @@ Item {
     signal deleteBlockClicked()
     signal addBlockClicked(string pattern, double freq, double time)
     signal flashClicked()
+    signal deleteAllClicked()
     signal dragFinished(var block)
+    signal blockDescription(string pattern, double freq, double time)
 
     Component.onCompleted: {
         root.addBlockClicked.connect(rightCol.addButtonClicked);
         root.deleteBlockClicked.connect(rightCol.deleteBlockClicked);
         root.dragFinished.connect(rightCol.dragFinished)
+        root.deleteAllClicked.connect(rightCol.deleteAllBlocks);
+        root.flashClicked.connect(rightCol.flashBlocks);
+        root.blockDescription("alt-flash", 5, 6)
     }
 
 

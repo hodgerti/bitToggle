@@ -12,9 +12,9 @@ Column {
         id: repeater2
         model: 8
         Rectangle {
-            x: (rightCol.width * .15) - ((rightCol.width * .10)/2)
-            width: rightCol.width * .10
-            height: rightCol.width * .10
+            x: (rightCol.width * .15)
+            width: rightCol.width * .12
+            height: rightCol.width * .12
             color: parent.offColor
             border.width: 10
             border.color: "silver"
@@ -72,8 +72,17 @@ Column {
         property int bitBlockIdx: 0
         running: true
         repeat: true
+        function inter () {
+            if (bitBlockEle){
+                if (bitBlockEle.t > 0){
+                    return 1000 * (bitBlockEle.t)
+                }
+            }
+            return 80;
+        }
 
-        interval: (bitBlockEle) ? 1000 * bitBlockEle.t : 80
+        interval: inter()
+
         onTriggered: {
             if (bitBlockIdx < bitBlockListLength){
                 if (bitBlockList[bitBlockIdx]){
@@ -105,8 +114,17 @@ Column {
                 return;
             }
         }
+        function inter() {
+            if (bitBlockEle){
+                if (bitBlockEle.f > 0){
+                    return 1000/(bitBlockEle.f)
+                }
+            }
+            return false;
+        }
 
-        interval: (bitBlockEle) ? 1000/(bitBlockEle.f * variClock.len) : 0
+        interval: inter()
+
         running: true
         repeat: true
         onTriggered: {

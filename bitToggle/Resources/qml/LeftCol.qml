@@ -152,6 +152,34 @@ Item {
                 }
             }
         }
+
+        Rectangle {
+            id: deleteAllButton
+            width: leftCol.width
+            height: 50
+
+            Button {
+                id: deleteAllPhysicalButton;
+                anchors.fill: deleteAllButton;
+                text: qsTr("Delete All")
+                style: ButtonStyle {
+                    label: Text {
+                        verticalAlignment: Text.AlignVCenter
+                        horizontalAlignment: Text.AlignHCenter
+                        font.pointSize: 60
+                        font.family: "Courier"
+                        font.capitalization: Font.SmallCaps
+                        color: "black"
+                        text: deleteAllPhysicalButton.text
+                    }
+                }
+                onClicked: {
+                    root.deleteAllClicked();
+                }
+
+            }
+        }
+
         Rectangle {
             id: flashButtons
             width: leftCol.width

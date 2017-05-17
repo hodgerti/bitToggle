@@ -24,6 +24,21 @@ Item {
     function dragFinished (block) {
         BitBlockReorderScript.sort(rCol.children, block);
     }
+    function deleteAllBlocks () {
+        var len = rCol.children.length;
+        for (var i = 0;i < len;i++){
+            rCol.children[i].destroy();
+        }
+        fullCycleDisplay.setByte(0);
+    }
+    function flashBlocks () {
+        var len = rCol.children.length;
+        for (var i = 0;i < len;i++){
+            root.blockDescription(rCol.children[i].p,
+                                  rCol.children[i].f,
+                                  rCol.children[i].t);
+        }
+    }
 
     Column {
         id: rCol
@@ -50,6 +65,6 @@ Item {
         anchors.left: parent.left
         anchors.leftMargin: 0
         anchors.top: parent.top
-        anchors.topMargin: 0
+        anchors.topMargin: 35
     }
 }
