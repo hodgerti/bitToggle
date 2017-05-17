@@ -8,5 +8,6 @@
         <file>main.cpp</file>
         <file>Resources/qml/BitBlockDef.qml</file>
         <file>Resources/qml/FullCycleDisplay.qml</file>
+        <file>Resources/qml/bitBlockReorder.js</file>
     </qresource>
 </RCC>

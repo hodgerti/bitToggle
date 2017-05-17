@@ -21,10 +21,12 @@ Item {
     signal deleteBlockClicked()
     signal addBlockClicked(string pattern, double freq, double time)
     signal flashClicked()
+    signal dragFinished(var block)
 
     Component.onCompleted: {
         root.addBlockClicked.connect(rightCol.addButtonClicked);
         root.deleteBlockClicked.connect(rightCol.deleteBlockClicked);
+        root.dragFinished.connect(rightCol.dragFinished)
     }
 
 

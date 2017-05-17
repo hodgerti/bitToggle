@@ -1,5 +1,6 @@
 import QtQuick 2.0
 
+
 Rectangle {
     id: block
     x: parent.width/2
@@ -12,12 +13,20 @@ Rectangle {
     property double f
     property double t
 
+
     MouseArea {
+        id: dragArea
         anchors.fill: parent
-        onClicked: {
+        drag.target: block
+        drag.axis: Drag.YAxis
+        onPressed: {
             root.lastElementClicked = block;
         }
+        onReleased: {
+            root.dragFinished(block);
+        }
     }
+
     Text {
         id: pattern
         width: parent.width

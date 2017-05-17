@@ -25,7 +25,6 @@ class AppWindow(QQuickView):
         root = self.rootObject()
         self.closing.connect(self.closeEvent)
 
-
         #threading defines
         self.numThreadsRunning = 0
         self.threads = []

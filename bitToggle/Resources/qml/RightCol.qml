@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import QtQuick.Layouts 1.2
 import "bitBlockCreation.js" as BitBlockCreatorScript
+import "bitBlockReorder.js" as BitBlockReorderScript
 Item {
     id: rightCol
     anchors.top: parent.top
@@ -12,7 +13,6 @@ Item {
     anchors.right: leftCol.left
     anchors.rightMargin: -1920
 
-
     function addButtonClicked (pattern, freq, time){
         BitBlockCreatorScript.createBitBlock(pattern, freq, time);
     }
@@ -21,9 +21,13 @@ Item {
             root.lastElementClicked.destroy();
         fullCycleDisplay.setByte(0);
     }
+    function dragFinished (block) {
+        BitBlockReorderScript.sort(rCol.children, block);
+    }
 
     Column {
         id: rCol
+        objectName: "rCol"
         x: 192
         width: parent.width * .7
         height: parent.height
@@ -33,6 +37,10 @@ Item {
         anchors.rightMargin: 0
         spacing: 3
 
+    }
+
+    DropArea {
+        anchors.fill: parent
     }
 
     FullCycleDisplay {
