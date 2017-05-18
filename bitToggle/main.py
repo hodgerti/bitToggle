@@ -33,9 +33,6 @@ class AppWindow(QQuickView):
         self.bitBlockSender = BitBlockSender(self)
         self.core = UICore(self)
 
-        # bitBlockSender demo
-
-
         #adding threads to list
         self.threads.append(self.bitBlockSender)
 

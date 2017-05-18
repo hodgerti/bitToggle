@@ -117,7 +117,7 @@ Column {
         function inter() {
             if (bitBlockEle){
                 if (bitBlockEle.f > 0){
-                    return 1000/(bitBlockEle.f)
+                    return 1000/(bitBlockEle.f * variClock.len)
                 }
             }
             return false;
